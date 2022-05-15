@@ -1,7 +1,6 @@
 <template>
   <div class="inputBox shadow">
     <input type="text" v-model="newTodoItem" v-on:keypress.enter="addTodo" />
-    <!-- <button v-on:click="addTodo">add</button > -->
     <span class="addContainer addBtn" v-on:click="addTodo"
       ><i class="fas fa-plus"></i
     ></span>
@@ -17,9 +16,10 @@ export default {
   },
   methods: {
     addTodo: function () {
-      // 저장하는 로직
-      localStorage.setItem(this.newTodoItem, this.newTodoItem);
-      this.clearInput;
+      if (this.newTodoItem !== "") {
+        this.$emit("addTodoItem", this.newTodoItem);
+        this.clearInput;
+      }
     },
     clearInput: function () {
       this.newTodoItem = "";
@@ -46,6 +46,7 @@ input:focus {
   border-style: none;
   font-size: 0.9rem;
   border-radius: 10px 0 0 10px;
+  padding-left: 10px;
 }
 
 .addContainer {
