@@ -18,6 +18,7 @@ import TodoInput from "./components/TodoInput.vue";
 import TodoList from "./components/TodoList.vue";
 
 export default {
+  // 리액트와 비교하여 뷰의 장점, 트랙지션, 애니메이션 라이브러리를 제공
   data: function () {
     return {
       todoItems: [],
