@@ -5,46 +5,42 @@
       ><i class="fas fa-plus"></i
     ></span>
 
-    <Modal v-if="showModal" @close="showModal = false">
+    <AlertModal v-if="showModal" @close="showModal = false">
       <h3 slot="header">
-        경고
-        <i
-          class="closeModalBtn fa fa-times"
-          aria-hidden="true"
-          @click="showModal = false"
-        >
-        </i>
+        경고!
+        <i class="closeModalBtn fas fa-times" @click="showModal = false"></i>
       </h3>
-      <p slot="body">할 일을 입력하세요.</p>
-    </Modal>
+      <div slot="body">아무것도 입력하지 않았습니다.</div>
+    </AlertModal>
   </div>
 </template>
 
 <script>
-import Modal from "./commons/Modal.vue";
+import AlertModal from "./commons/AlertModal.vue";
 
 export default {
-  data: function () {
+  data() {
     return {
       newTodoItem: "",
       showModal: false,
     };
   },
   methods: {
-    addTodo: function () {
+    addTodo() {
       if (this.newTodoItem !== "") {
-        this.$emit("addTodoItem", this.newTodoItem);
-        this.clearInput;
+        // this.$emit("addTodoItem", this.newTodoItem);
+        this.$store.commit("addOneItem", this.newTodoItem);
+        this.clearInput();
       } else {
         this.showModal = !this.showModal;
       }
     },
-    clearInput: function () {
+    clearInput() {
       this.newTodoItem = "";
     },
   },
   components: {
-    Modal,
+    AlertModal,
   },
 };
 </script>
@@ -81,6 +77,11 @@ input:focus {
 .addBtn {
   color: white;
   vertical-align: middle;
+  cursor: pointer;
+}
+
+.closeModalBtn {
+  color: #6053f8;
   cursor: pointer;
 }
 </style>
